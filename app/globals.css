@@ -1,26 +1,195 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #e5e5e5;
+  --aot-green: #2dd4bf;
+  --aot-green-dim: #14b8a6;
+  --aot-red: #ef4444;
+  --aot-red-dark: #991b1b;
+  --aot-brown: #92400e;
+  --aot-cream: #fef3c7;
+  --aot-dark-wall: #1c1917;
+  --aot-steel: #292524;
+  --aot-cape: #44403c;
+  --aot-smoke: #78716c;
+  --glow-green: 0 0 20px rgba(45, 212, 191, 0.5), 0 0 40px rgba(45, 212, 191, 0.3);
+  --glow-red: 0 0 20px rgba(239, 68, 68, 0.5), 0 0 40px rgba(239, 68, 68, 0.3);
+  --glow-green-lg: 0 0 30px rgba(45, 212, 191, 0.7), 0 0 60px rgba(45, 212, 191, 0.4), 0 0 90px rgba(45, 212, 191, 0.2);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-aot-green: var(--aot-green);
+  --color-aot-green-dim: var(--aot-green-dim);
+  --color-aot-red: var(--aot-red);
+  --color-aot-red-dark: var(--aot-red-dark);
+  --color-aot-brown: var(--aot-brown);
+  --color-aot-cream: var(--aot-cream);
+  --color-aot-dark-wall: var(--aot-dark-wall);
+  --color-aot-steel: var(--aot-steel);
+  --color-aot-cape: var(--aot-cape);
+  --color-aot-smoke: var(--aot-smoke);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--aot-green-dim) var(--aot-dark-wall);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--aot-dark-wall);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--aot-green-dim);
+  border-radius: 4px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes slash {
+  0% { transform: translateX(-100%) rotate(-45deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(-45deg); opacity: 0; }
+}
+
+@keyframes steam-rise {
+  0% { transform: translateY(100%) scale(0.5); opacity: 0; }
+  50% { opacity: 0.3; }
+  100% { transform: translateY(-100%) scale(1.5); opacity: 0; }
+}
+
+@keyframes wall-crack {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes title-reveal {
+  0% { 
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0;
+  }
+  100% { 
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes wings-spread {
+  0% { transform: scaleX(0); opacity: 0; }
+  50% { transform: scaleX(1.1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes titan-step {
+  0%, 100% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(-10px) scale(1.02); }
+  75% { transform: translateY(5px) scale(0.98); }
+}
+
+@keyframes green-flash {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-slash {
+  animation: slash 1.5s ease-in-out infinite;
+}
+
+.animate-steam {
+  animation: steam-rise 4s ease-in-out infinite;
+}
+
+.animate-wall-crack {
+  animation: wall-crack 3s ease-in-out infinite;
+}
+
+.animate-title-reveal {
+  animation: title-reveal 1.5s ease-out forwards;
+}
+
+.animate-wings-spread {
+  animation: wings-spread 2s ease-out forwards;
+}
+
+.animate-titan-step {
+  animation: titan-step 3s ease-in-out infinite;
+}
+
+.animate-green-flash {
+  animation: green-flash 2s ease-in-out infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--aot-green) 0%, var(--aot-cream) 50%, var(--aot-red) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-red {
+  background: linear-gradient(135deg, var(--aot-red) 0%, var(--aot-cream) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  background: rgba(28, 25, 23, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(45, 212, 191, 0.2);
+}
+
+.glass-card:hover {
+  border-color: rgba(45, 212, 191, 0.5);
+  box-shadow: var(--glow-green);
+}
+
+.wall-texture {
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 50px,
+      rgba(146, 64, 14, 0.1) 50px,
+      rgba(146, 64, 14, 0.1) 51px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      rgba(146, 64, 14, 0.1) 50px,
+      rgba(146, 64, 14, 0.1) 51px
+    );
 }
