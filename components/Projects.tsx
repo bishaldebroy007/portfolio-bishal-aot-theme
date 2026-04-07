@@ -1,7 +1,14 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+
+interface Particle {
+  left: number;
+  top: number;
+  delay: number;
+  duration: number;
+}
 
 const projects = [
   {
@@ -62,31 +69,46 @@ const certificates = [
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [mounted, setMounted] = useState(false);
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  useEffect(() => {
+    setMounted(true);
+    setParticles(
+      Array.from({ length: 20 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        delay: Math.random() * 2,
+        duration: 3 + Math.random() * 2,
+      }))
+    );
+  }, []);
 
   return (
     <section id="projects" className="relative py-32 bg-aot-steel overflow-hidden" ref={ref}>
       {/* Animated Background */}
       <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-aot-green/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -50, 0],
-              opacity: [0.1, 0.5, 0.1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {mounted &&
+          particles.map((particle, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-aot-green/30 rounded-full"
+              style={{
+                left: `${particle.left}%`,
+                top: `${particle.top}%`,
+              }}
+              animate={{
+                y: [0, -50, 0],
+                opacity: [0.1, 0.5, 0.1],
+              }}
+              transition={{
+                duration: particle.duration,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: particle.delay,
+              }}
+            />
+          ))}
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

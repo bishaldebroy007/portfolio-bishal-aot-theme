@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
+interface Particle {
+  left: number;
+  top: number;
+  delay: number;
+  duration: number;
+}
+
 export default function Hero() {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
@@ -10,6 +17,20 @@ export default function Hero() {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const [text, setText] = useState('');
   const fullText = 'Junior Software Engineer';
+  const [mounted, setMounted] = useState(false);
+  const [embers, setEmbers] = useState<Particle[]>([]);
+
+  useEffect(() => {
+    setMounted(true);
+    setEmbers(
+      Array.from({ length: 15 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        delay: Math.random() * 2,
+        duration: 3 + Math.random() * 2,
+      }))
+    );
+  }, []);
 
   useEffect(() => {
     let i = 0;
@@ -79,27 +100,29 @@ export default function Hero() {
         </svg>
 
         {/* Floating Embers */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={`ember-${i}`}
-            className="absolute w-1 h-1 bg-aot-green rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              opacity: [0.2, 1, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
+        {mounted &&
+          embers.map((ember, i) => (
+            <motion.div
+              key={`ember-${i}`}
+              className="absolute w-1 h-1 bg-aot-green rounded-full"
+              style={{
+                left: `${ember.left}%`,
+                top: `${ember.top}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                x: [0, ember.left % 20 - 10, 0],
+                opacity: [0.2, 1, 0.2],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: ember.duration,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: ember.delay,
+              }}
+            />
+          ))}
       </div>
 
       {/* Main Content */}
