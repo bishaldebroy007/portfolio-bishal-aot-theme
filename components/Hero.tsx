@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface Particle {
   left: number;
@@ -15,8 +15,8 @@ export default function Hero() {
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const [text, setText] = useState('');
-  const fullText = 'Junior Software Engineer';
+  const [text, setText] = useState("");
+  const fullText = "Junior Software Engineer";
   const [mounted, setMounted] = useState(false);
   const [embers, setEmbers] = useState<Particle[]>([]);
 
@@ -28,7 +28,7 @@ export default function Hero() {
         top: Math.random() * 100,
         delay: Math.random() * 2,
         duration: 3 + Math.random() * 2,
-      }))
+      })),
     );
   }, []);
 
@@ -56,10 +56,10 @@ export default function Hero() {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={`steam-${i}`}
-            className="absolute w-32 h-32 rounded-full bg-gradient-to-t from-aot-green/5 to-transparent"
+            className="absolute w-32 h-32 rounded-full bg-linear-to-t from-aot-green/5 to-transparent"
             style={{
               left: `${10 + i * 12}%`,
-              bottom: '-10%',
+              bottom: "-10%",
               animationDelay: `${i * 0.5}s`,
             }}
             animate={{
@@ -70,7 +70,7 @@ export default function Hero() {
             transition={{
               duration: 8 + Math.random() * 4,
               repeat: Infinity,
-              ease: 'easeOut',
+              ease: "easeOut",
             }}
           />
         ))}
@@ -111,14 +111,14 @@ export default function Hero() {
               }}
               animate={{
                 y: [0, -30, 0],
-                x: [0, ember.left % 20 - 10, 0],
+                x: [0, (ember.left % 20) - 10, 0],
                 opacity: [0.2, 1, 0.2],
                 scale: [1, 1.5, 1],
               }}
               transition={{
                 duration: ember.duration,
                 repeat: Infinity,
-                ease: 'easeInOut',
+                ease: "easeInOut",
                 delay: ember.delay,
               }}
             />
@@ -138,7 +138,7 @@ export default function Hero() {
           className="mx-auto mb-8 animate-float"
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 1.5, type: 'spring', delay: 0.3 }}
+          transition={{ duration: 1.5, type: "spring", delay: 0.3 }}
         >
           <defs>
             <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -152,7 +152,13 @@ export default function Hero() {
             stroke="url(#wingGrad)"
             strokeWidth="2"
           />
-          <circle cx="50" cy="50" r="10" fill="var(--aot-green)" opacity="0.8" />
+          <circle
+            cx="50"
+            cy="50"
+            r="10"
+            fill="var(--aot-green)"
+            opacity="0.8"
+          />
           <circle cx="50" cy="50" r="5" fill="var(--aot-dark-wall)" />
         </motion.svg>
 
@@ -170,7 +176,7 @@ export default function Hero() {
 
         {/* Animated Slash Line */}
         <motion.div
-          className="w-32 h-1 bg-gradient-to-r from-transparent via-aot-green to-transparent mx-auto my-6"
+          className="w-32 h-1 bg-linear-to-rr from-transparent via-aot-green to-transparent mx-auto my-6"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
@@ -198,10 +204,14 @@ export default function Hero() {
           transition={{ delay: 2 }}
           className="text-base md:text-lg text-aot-cape max-w-2xl mx-auto mb-12 leading-relaxed"
         >
-          Creative and detail-oriented Software Engineer specializing in building
-          <span className="text-aot-green font-semibold"> accessible</span> and{' '}
-          <span className="text-aot-green font-semibold">optimized</span> web apps.
-          Fighting for user-centric experiences.
+          Creative and detail-oriented Software Engineer specializing in
+          building
+          <span className="text-aot-green font-semibold">
+            {" "}
+            accessible
+          </span> and{" "}
+          <span className="text-aot-green font-semibold">optimized</span> web
+          apps. Fighting for user-centric experiences.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -218,15 +228,25 @@ export default function Hero() {
             whileTap={{ scale: 0.95 }}
           >
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-aot-green-dim to-aot-green"
-              initial={{ x: '-100%' }}
+              className="absolute inset-0 bg-linear-to-r from-aot-green-dim to-aot-green"
+              initial={{ x: "-100%" }}
               whileHover={{ x: 0 }}
               transition={{ duration: 0.3 }}
             />
             <span className="relative z-10 flex items-center gap-2">
               View My Work
-              <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <svg
+                className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
               </svg>
             </span>
           </motion.a>
@@ -234,7 +254,10 @@ export default function Hero() {
           <motion.a
             href="#contact"
             className="px-8 py-4 border-2 border-aot-green/50 text-aot-green font-bold rounded-lg hover:border-aot-green hover:bg-aot-green/10 transition-all duration-300"
-            whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(45, 212, 191, 0.4)' }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 0 30px rgba(45, 212, 191, 0.4)",
+            }}
             whileTap={{ scale: 0.95 }}
           >
             Contact Me
@@ -265,7 +288,7 @@ export default function Hero() {
       {/* Parallax Wall Layers */}
       <motion.div
         style={{ y: y1 }}
-        className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-aot-steel to-transparent opacity-50"
+        className="absolute bottom-0 left-0 right-0 h-64 bg-linear-to-t from-aot-steel to-transparent opacity-50"
       />
     </section>
   );

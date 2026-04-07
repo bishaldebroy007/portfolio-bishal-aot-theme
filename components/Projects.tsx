@@ -56,6 +56,7 @@ const projects = [
     status: "Completed",
     icon: <MdOutlineFoodBank color="orange" />, // Money Icon
     color: "from-aot-green-dim to-aot-cream",
+    live: "https://github.com/bishaldebroy007/resturent-menu-django",
   },
   {
     title: "SmartSpend",
