@@ -1,7 +1,12 @@
-'use client';
+"use client";
 
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { GoOrganization } from "react-icons/go";
+import { VscFilePdf } from "react-icons/vsc";
+import { TbMoneybag } from "react-icons/tb";
+import { HiDevicePhoneMobile } from "react-icons/hi2";
+import { MdOutlineFoodBank } from "react-icons/md";
 
 interface Particle {
   left: number;
@@ -12,63 +17,82 @@ interface Particle {
 
 const projects = [
   {
-    title: 'Penta Solutions',
+    title: "Penta Solutions Website",
     description:
-      'Collaborating with frontend and backend teams to build a fully functional company website using modern web technologies.',
-    tech: ['React JS', 'NEXT JS', 'Tailwind CSS', 'Shadcn UI', 'Payload CMS'],
-    period: '06/2025 – Present',
-    status: 'In Progress',
-    icon: '🏢',
-    color: 'from-aot-green to-aot-green-dim',
+      "Collaborating with frontend and backend teams to build a fully functional company website using modern web technologies.",
+    tech: ["NEXT JS", "Tailwind CSS", "Shadcn UI", "Payload CMS"],
+    period: "06/2025 – Present",
+    status: "Completed",
+    icon: <GoOrganization color="blue" />, // Building Icon
+    color: "from-aot-green to-aot-green-dim",
   },
   {
-    title: 'Gemini-like AI Chatbot',
+    title: "VanillaPDF",
     description:
-      'Built a Gemini-like chatbot using the Gemini API. An AI-powered conversational interface with modern UI.',
-    tech: ['React JS', 'Tailwind CSS', 'Gemini API'],
-    period: '03/2025 – Present',
-    status: 'In Development',
-    icon: '🤖',
-    color: 'from-aot-cream to-aot-green',
-    live: '#',
+      "Built a Gemini-like chatbot using the Gemini API. An AI-powered conversational interface with modern UI.",
+    tech: ["NEXT JS", "Tailwind CSS", "Gemini-CLI"],
+    period: "03/2025 – Present",
+    status: "Under Development",
+    icon: <VscFilePdf color="orange" />, // PDF Icon
+    color: "from-aot-cream to-aot-green",
+    live: "https://vanillapdf.netlify.app/",
   },
   {
-    title: 'SmartSpend',
+    title: "HRMS Mobile App",
     description:
-      'A web application designed to help users manage their personal expenses efficiently with intuitive tracking and analytics.',
-    tech: ['React JS', 'Tailwind CSS', 'Daisy UI'],
-    period: '03/2025 – 05/2025',
-    status: 'Completed',
-    icon: '💰',
-    color: 'from-aot-green-dim to-aot-cream',
-    live: '#',
+      "A web application designed to help users manage their personal expenses efficiently with intuitive tracking and analytics.",
+    tech: ["React JS", "React Native", "Expo", "O'Auth"],
+    period: "03/2025 – 05/2025",
+    status: "Completed",
+    icon: <HiDevicePhoneMobile color="gray" />, // Money Icon
+    color: "from-aot-green-dim to-aot-cream",
+  },
+  {
+    title: "Resturent Website",
+    description:
+      "A web application designed to help users manage their personal expenses efficiently with intuitive tracking and analytics.",
+    tech: ["Python", "Django"],
+    period: "07/2025",
+    status: "Completed",
+    icon: <MdOutlineFoodBank color="orange" />, // Money Icon
+    color: "from-aot-green-dim to-aot-cream",
+  },
+  {
+    title: "SmartSpend",
+    description:
+      "A web application designed to help users manage their personal expenses efficiently with intuitive tracking and analytics.",
+    tech: ["React JS", "Tailwind CSS", "Daisy UI"],
+    period: "03/2025 – 05/2025",
+    status: "Completed",
+    icon: <TbMoneybag color="yellow" />,
+    color: "from-aot-green-dim to-aot-cream",
   },
 ];
 
 const certificates = [
   {
-    title: 'Basics of Web Development',
-    description: 'HTML, CSS, Bootstrap & JavaScript',
+    title: "Basics of Web Development",
+    description: "HTML, CSS, Bootstrap & JavaScript",
     issuer: "Mentors' Learning",
-    date: 'March 2025',
+    date: "March 2025",
   },
   {
-    title: 'Intermediate Git',
-    description: 'Git & GitHub',
-    issuer: 'DataCamp',
-    date: 'March 2025',
+    title: "Intermediate Git",
+    description: "Git & GitHub",
+    issuer: "DataCamp",
+    date: "March 2025",
   },
   {
-    title: 'Introduction to Python',
-    description: 'Python Programming Language & NumPy',
-    issuer: 'DataCamp',
-    date: 'March 2025',
+    title: "Introduction to Python",
+    description: "Python Programming Language & NumPy",
+    issuer: "DataCamp",
+    date: "March 2025",
   },
 ];
 
 export default function Projects() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [mounted, setMounted] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
 
@@ -80,12 +104,16 @@ export default function Projects() {
         top: Math.random() * 100,
         delay: Math.random() * 2,
         duration: 3 + Math.random() * 2,
-      }))
+      })),
     );
   }, []);
 
   return (
-    <section id="projects" className="relative py-32 bg-aot-steel overflow-hidden" ref={ref}>
+    <section
+      id="projects"
+      className="relative py-32 bg-aot-steel overflow-hidden"
+      ref={ref}
+    >
       {/* Animated Background */}
       <div className="absolute inset-0">
         {mounted &&
@@ -104,7 +132,7 @@ export default function Projects() {
               transition={{
                 duration: particle.duration,
                 repeat: Infinity,
-                ease: 'easeInOut',
+                ease: "easeInOut",
                 delay: particle.delay,
               }}
             />
@@ -130,11 +158,11 @@ export default function Projects() {
             </span>
           </motion.div>
           <h2 className="text-4xl md:text-6xl font-black mb-6">
-            <span className="gradient-text">Projects</span>{' '}
+            <span className="gradient-text">Projects</span>{" "}
             <span className="text-aot-cream">& Certificates</span>
           </h2>
           <motion.div
-            className="w-24 h-1 bg-gradient-to-r from-transparent via-aot-green to-transparent mx-auto"
+            className="w-24 h-1 bg-linear-to-r from-transparent via-aot-green to-transparent mx-auto"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -151,10 +179,10 @@ export default function Projects() {
               transition={{ duration: 0.8, delay: index * 0.15 }}
               whileHover={{ scale: 1.05, y: -10 }}
               className="glass-card rounded-2xl overflow-hidden group relative"
-              style={{ perspective: '1000px' }}
+              style={{ perspective: "1000px" }}
             >
               {/* Card Header */}
-              <div className={`h-2 bg-gradient-to-r ${project.color}`} />
+              <div className={`h-2 bg-linear-to-r ${project.color}`} />
 
               <div className="p-6">
                 {/* Icon & Status */}
@@ -168,11 +196,11 @@ export default function Projects() {
                   </motion.div>
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      project.status === 'Completed'
-                        ? 'bg-aot-green/20 text-aot-green border border-aot-green/40'
-                        : project.status === 'In Progress'
-                        ? 'bg-aot-cream/20 text-aot-cream border border-aot-cream/40'
-                        : 'bg-aot-red/20 text-aot-red border border-aot-red/40'
+                      project.status === "Completed"
+                        ? "bg-aot-green/20 text-aot-green border border-aot-green/40"
+                        : project.status === "In Progress"
+                          ? "bg-aot-cream/20 text-aot-cream border border-aot-cream/40"
+                          : "bg-aot-red/20 text-aot-red border border-aot-red/40"
                     }`}
                   >
                     {project.status}
@@ -183,7 +211,9 @@ export default function Projects() {
                 <h3 className="text-xl font-bold text-aot-cream mb-3 group-hover:text-aot-green transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-aot-smoke mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-sm text-aot-smoke mb-4 leading-relaxed">
+                  {project.description}
+                </p>
 
                 {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -201,7 +231,9 @@ export default function Projects() {
                 </div>
 
                 {/* Period */}
-                <div className="text-xs text-aot-smoke mb-4">{project.period}</div>
+                <div className="text-xs text-aot-smoke mb-4">
+                  {project.period}
+                </div>
 
                 {/* Action Buttons */}
                 <div className="flex gap-2">
@@ -222,7 +254,7 @@ export default function Projects() {
 
               {/* Hover Glow Effect */}
               <motion.div
-                className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none`}
+                className={`absolute inset-0 bg-linear-to-bl ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none`}
               />
             </motion.div>
           ))}
@@ -249,19 +281,31 @@ export default function Projects() {
                 className="glass-card rounded-xl p-6 text-center group"
               >
                 <motion.div
-                  className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-aot-green/20 to-aot-cream/20 flex items-center justify-center"
+                  className="w-16 h-16 mx-auto mb-4 rounded-full bg-linear-to-br from-aot-green/20 to-aot-cream/20 flex items-center justify-center"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <svg className="w-8 h-8 text-aot-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                  <svg
+                    className="w-8 h-8 text-aot-green"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                    />
                   </svg>
                 </motion.div>
 
                 <h4 className="text-lg font-bold text-aot-cream mb-2 group-hover:text-aot-green transition-colors">
                   {cert.title}
                 </h4>
-                <p className="text-sm text-aot-smoke mb-2">{cert.description}</p>
+                <p className="text-sm text-aot-smoke mb-2">
+                  {cert.description}
+                </p>
                 <div className="text-xs text-aot-cape">
                   {cert.issuer} • {cert.date}
                 </div>
@@ -277,8 +321,8 @@ export default function Projects() {
           transition={{ duration: 0.8, delay: 1.5 }}
           className="mt-16 glass-card rounded-2xl p-8 relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-aot-red/20 to-transparent rounded-bl-full" />
-          
+          <div className="absolute top-0 right-0 w-40 h-40 bg-linear-to-bl from-aot-red/20 to-transparent rounded-bl-full" />
+
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-4">
               <motion.div
@@ -286,21 +330,40 @@ export default function Projects() {
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
               >
-                <svg className="w-6 h-6 text-aot-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                <svg
+                  className="w-6 h-6 text-aot-red"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
                 </svg>
               </motion.div>
               <div>
-                <h3 className="text-2xl font-bold text-aot-cream">Publication</h3>
-                <p className="text-sm text-aot-smoke">COMPASS '24: ACM SIGCAS/SIGCHI Conference</p>
+                <h3 className="text-2xl font-bold text-aot-cream">
+                  Publication
+                </h3>
+                <p className="text-sm text-aot-smoke">
+                  COMPASS &apos;24: ACM SIGCAS/SIGCHI Conference
+                </p>
               </div>
             </div>
 
             <p className="text-aot-smoke leading-relaxed mb-4">
-              <span className="text-aot-green font-semibold">"Bridging the Gap: Exploring the Factors Influencing Women's Adoption of Mobile Financial Services (MFS) in Rural Areas of Bangladesh"</span>
+              <span className="text-aot-green font-semibold">
+                &quot;Bridging the Gap: Exploring the Factors Influencing
+                Women&apos;s Adoption of Mobile Financial Services (MFS) in
+                Rural Areas of Bangladesh&quot;
+              </span>
             </p>
             <p className="text-sm text-aot-cape mb-4">
-              Authors: Bishal Deb Roy, Sumaia Arefin Ritu, Anika Priodorshinee Mrittika, and Jannatun Noor
+              Authors: Bishal Deb Roy, Sumaia Arefin Ritu, Anika Priodorshinee
+              Mrittika, and Jannatun Noor
             </p>
 
             <motion.a
@@ -312,8 +375,18 @@ export default function Projects() {
               whileTap={{ scale: 0.95 }}
             >
               View Paper
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
               </svg>
             </motion.a>
           </div>
