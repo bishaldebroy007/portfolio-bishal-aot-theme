@@ -4,15 +4,35 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/components/ThemeProvider';
 
+interface RainDrop {
+  left: string;
+  duration: number;
+  delay: number;
+  char: string;
+}
+
 export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [phase, setPhase] = useState<'rain' | 'flash' | 'typing' | 'done'>('rain');
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [rainDrops, setRainDrops] = useState<RainDrop[]>([]);
 
   const fullText = '> initializing portfolio...';
 
   useEffect(() => {
+    setMounted(true);
+    const chars = '{}();<>=/';
+    setRainDrops(
+      Array.from({ length: 30 }, (_, i) => ({
+        left: `${(i / 30) * 100}%`,
+        duration: 0.8 + Math.random() * 0.5,
+        delay: Math.random() * 0.3,
+        char: chars.charAt(Math.floor(Math.random() * chars.length)),
+      }))
+    );
+
     const timers: NodeJS.Timeout[] = [];
 
     timers.push(setTimeout(() => setPhase('flash'), 800));
@@ -110,26 +130,26 @@ export default function LoadingScreen() {
           )}
 
           {/* Rain phase - simple dots */}
-          {phase === 'rain' && (
+          {phase === 'rain' && mounted && (
             <div className="absolute inset-0 overflow-hidden">
-              {Array.from({ length: 30 }).map((_, i) => (
+              {rainDrops.map((drop, i) => (
                 <motion.div
                   key={i}
                   className="absolute font-mono text-xs"
                   style={{
-                    left: `${(i / 30) * 100}%`,
+                    left: drop.left,
                     color: theme === 'dark' ? '#00ff41' : '#000',
                     opacity: 0.3,
                   }}
                   initial={{ y: -20 }}
                   animate={{ y: '100vh' }}
                   transition={{
-                    duration: 0.8 + Math.random() * 0.5,
-                    delay: Math.random() * 0.3,
+                    duration: drop.duration,
+                    delay: drop.delay,
                     ease: 'linear',
                   }}
                 >
-                  {'{}();<>=/'.charAt(Math.floor(Math.random() * 9))}
+                  {drop.char}
                 </motion.div>
               ))}
             </div>

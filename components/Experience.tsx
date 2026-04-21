@@ -10,6 +10,13 @@ export default function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [commitHashes, setCommitHashes] = useState<string[]>([]);
+
+  useEffect(() => {
+    setMounted(true);
+    setCommitHashes(experiences.map(() => Math.random().toString(36).substring(2, 9)));
+  }, []);
 
   const typeBadge = (type: string) => {
     if (theme === 'dark') {
@@ -220,7 +227,7 @@ export default function Experience() {
                   >
                     {theme === 'dark' && (
                       <div className="font-mono text-xs text-aot-smoke mb-3">
-                        <span className="text-aot-green">commit</span> {Math.random().toString(36).substring(2, 9)}
+                        <span className="text-aot-green">commit</span> {mounted ? commitHashes[index] : '.......'}
                         <span className="text-aot-smoke ml-2">({exp.period})</span>
                       </div>
                     )}

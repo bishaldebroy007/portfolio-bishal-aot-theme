@@ -23,6 +23,7 @@ export default function Hero() {
   const fullText = 'Junior Software Engineer';
   const [mounted, setMounted] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
+  const [steamDurations, setSteamDurations] = useState<number[]>([]);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Hero() {
         char: codeChars[Math.floor(Math.random() * codeChars.length)],
       }))
     );
+    setSteamDurations(Array.from({ length: 6 }, () => 8 + Math.random() * 4));
   }, []);
 
   useEffect(() => {
@@ -74,7 +76,7 @@ export default function Hero() {
                 scale: [0.5, 1.5],
               }}
               transition={{
-                duration: 8 + Math.random() * 4,
+                duration: steamDurations[i] || 10,
                 repeat: Infinity,
                 ease: 'easeOut',
                 delay: i * 0.7,

@@ -1,8 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function Footer() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <footer className="relative bg-aot-steel border-t border-aot-green/20 py-12">
       <div className="max-w-7xl mx-auto px-6">
@@ -66,7 +73,7 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <p>
-              © {new Date().getFullYear()} Bishal Deb Roy. Built with{" "}
+              © {mounted ? new Date().getFullYear() : "2026"} Bishal Deb Roy. Built with{" "}
               <span className="text-aot-green">Next.JS</span> and{" "}
               <span className="text-aot-red">Love</span> inspired by Attack on
               Titan
