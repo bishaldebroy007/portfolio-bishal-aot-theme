@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { FaComputer } from "react-icons/fa6";
+// import { FaComputer } from "react-icons/fa6";
 
 const experiences = [
   {
