@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,12 +15,21 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Bishal Deb Roy | Junior Software Engineer",
-  description: "Creative and detail-oriented Software Engineer specializing in building accessible and optimized web apps. Inspired by Attack on Titan.",
-  keywords: ["Software Engineer", "React", "Next.js", "TypeScript", "Web Developer", "Bangladesh"],
+  description:
+    "Creative and detail-oriented Software Engineer specializing in building accessible and optimized web apps. Inspired by Attack on Titan.",
+  keywords: [
+    "Software Engineer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Web Developer",
+    "Bangladesh",
+  ],
   authors: [{ name: "Bishal Deb Roy" }],
   openGraph: {
     title: "Bishal Deb Roy | Portfolio",
-    description: "Junior Software Engineer - Building accessible and optimized web apps",
+    description:
+      "Junior Software Engineer - Building accessible and optimized web apps",
     type: "website",
   },
 };
@@ -32,9 +42,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
