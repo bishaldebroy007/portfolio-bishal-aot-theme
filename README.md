@@ -11,3 +11,8 @@ yarn dev
 # or
 npm run dev
 ```
+
+## Progress Made in the Project
+
+- Create Sections like Nav-bar, Footer, About Me, Skills, Experience & Education, Project & Certificates, COntact, and Footer.
+- Add Proper animation, mainting the color theme.

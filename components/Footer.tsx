@@ -1,8 +1,15 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function Footer() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <footer className="relative bg-aot-steel border-t border-aot-green/20 py-12">
       <div className="max-w-7xl mx-auto px-6">
@@ -29,22 +36,25 @@ export default function Footer() {
 
           <div className="text-aot-smoke text-sm">
             <p>
-              Dedicate your hearts —{' '}
+              Dedicate your hearts —{" "}
               <span className="text-aot-green font-medium">Bishal Deb Roy</span>
             </p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             {[
-              { label: 'LinkedIn', url: 'https://www.linkedin.com/in/bishal-deb-roy-0b31241a0/' },
-              { label: 'GitHub', url: 'https://github.com/bishaldebroy007' },
-              { label: 'Medium', url: 'https://medium.com/@bishal-deb-roy' },
-              { label: 'Email', url: 'mailto:bishaldebroy2000@gmail.com' },
+              {
+                label: "LinkedIn",
+                url: "https://www.linkedin.com/in/bishal-deb-roy-0b31241a0/",
+              },
+              { label: "GitHub", url: "https://github.com/bishaldebroy007" },
+              { label: "Medium", url: "https://medium.com/@bishal-deb-roy" },
+              { label: "Email", url: "mailto:bishaldebroy2000@gmail.com" },
             ].map((link) => (
               <motion.a
                 key={link.label}
                 href={link.url}
-                target={link.url.startsWith('http') ? '_blank' : undefined}
+                target={link.url.startsWith("http") ? "_blank" : undefined}
                 rel="noopener noreferrer"
                 className="text-aot-smoke hover:text-aot-green transition-colors"
                 whileHover={{ scale: 1.1 }}
@@ -63,9 +73,10 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <p>
-              © {new Date().getFullYear()} Bishal Deb Roy. Built with{' '}
-              <span className="text-aot-green">Next.js</span> and{' '}
-              <span className="text-aot-red">♥</span> inspired by Attack on Titan
+              © {mounted ? new Date().getFullYear() : "2026"} Bishal Deb Roy. Built with{" "}
+              <span className="text-aot-green">Next.JS</span> and{" "}
+              <span className="text-aot-red">Love</span> inspired by Attack on
+              Titan
             </p>
           </motion.div>
         </div>
