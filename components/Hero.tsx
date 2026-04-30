@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+	motion,
+	useScroll,
+	useTransform,
+	stagger,
+	useAnimate,
+} from "framer-motion";
 import GlitchText from "@/components/GlitchText";
 
 interface Particle {
@@ -19,6 +25,7 @@ export default function Hero() {
 	const fullText = "Software Developer";
 	const [mounted, setMounted] = useState(false);
 	const [particles, setParticles] = useState<Particle[]>([]);
+	const [scope, animate] = useAnimate();
 
 	useEffect(() => {
 		setMounted(true);
@@ -45,25 +52,42 @@ export default function Hero() {
 		return () => clearInterval(timer);
 	}, []);
 
+	// Staggered sequence for content
+	useEffect(() => {
+		if (mounted) {
+			animate([
+				[
+					".wing-emblem",
+					{ scale: [0, 1.2, 1], rotate: [0, -10, 10, 0], opacity: 1 },
+					{ duration: 1.5, ease: "backOut" },
+				],
+				[
+					".content-stagger",
+					{ opacity: 1, y: 0 },
+					{ duration: 0.8, delay: stagger(0.2), at: "-1" },
+				],
+			]);
+		}
+	}, [mounted, animate]);
+
 	return (
 		<section
 			id="home"
 			className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white screentone"
 		>
-			{/* Light: Speed lines background */}
 			<div className="absolute inset-0 speed-lines" />
 
-			{/* Manga marks */}
 			{mounted &&
 				particles.map((p, i) => (
 					<motion.div
 						key={`particle-${i}`}
 						className="absolute font-mono pointer-events-none text-black/10 font-black text-sm"
 						style={{ left: `${p.left}%`, top: `${p.top}%` }}
+						initial={{ opacity: 0 }}
 						animate={{
 							y: [0, -40, 0],
 							x: [0, (p.left % 20) - 10, 0],
-							opacity: [0.1, 0.5, 0.1],
+							opacity: [0, 0.5, 0],
 							rotate: [0, 10, 0],
 						}}
 						transition={{
@@ -77,87 +101,133 @@ export default function Hero() {
 					</motion.div>
 				))}
 
-			{/* Main Content */}
 			<motion.div
+				ref={scope}
 				style={{ y: y2, opacity }}
 				className="relative z-10 text-center px-6 max-w-5xl mx-auto"
 			>
-				{/* Wings of Freedom Emblem */}
-				<motion.svg
-					width="100"
-					height="100"
-					viewBox="0 0 100 100"
-					className="mx-auto mb-8 animate-float"
-					initial={{ scale: 0, rotate: -180 }}
-					animate={{ scale: 1, rotate: 0 }}
-					transition={{ duration: 1.5, type: "spring", delay: 0.3 }}
-				>
-					<defs>
-						<linearGradient
-							id="wingGrad"
-							x1="0%"
-							y1="0%"
-							x2="100%"
-							y2="100%"
+				<div className="wing-emblem opacity-0 mb-8">
+					<svg
+						width="100"
+						height="100"
+						viewBox="0 0 100 100"
+						className="mx-auto"
+					>
+						<defs>
+							<linearGradient
+								id="wingGrad"
+								x1="0%"
+								y1="0%"
+								x2="100%"
+								y2="100%"
+							>
+								<stop offset="0%" stopColor="#000" />
+								<stop offset="100%" stopColor="#333" />
+							</linearGradient>
+						</defs>
+						<path
+							d="M50 5 L15 25 L25 50 L15 75 L50 50 L85 75 L75 50 L85 25 Z"
+							fill="none"
+							stroke="url(#wingGrad)"
+							strokeWidth="3"
+						/>
+						<circle
+							cx="50"
+							cy="50"
+							r="10"
+							fill="#000"
+							opacity="0.8"
+						/>
+						<circle cx="50" cy="50" r="5" fill="#fff" />
+					</svg>
+				</div>
+
+				<div className="content-stagger opacity-0 translate-y-10">
+					<div className="overflow-hidden">
+						<motion.div
+							initial="hidden"
+							animate="visible"
+							variants={{
+								visible: {
+									transition: { staggerChildren: 0.1 },
+								},
+							}}
+							className="flex justify-center"
 						>
-							<stop offset="0%" stopColor="#000" />
-							<stop offset="100%" stopColor="#333" />
-						</linearGradient>
-					</defs>
-					<path
-						d="M50 5 L15 25 L25 50 L15 75 L50 50 L85 75 L75 50 L85 25 Z"
-						fill="none"
-						stroke="url(#wingGrad)"
-						strokeWidth="3"
-					/>
-					<circle cx="50" cy="50" r="10" fill="#000" opacity="0.8" />
-					<circle cx="50" cy="50" r="5" fill="#fff" />
-				</motion.svg>
+							{"BISHAL".split("").map((char, i) => (
+								<motion.span
+									key={i}
+									variants={{
+										hidden: {
+											opacity: 0,
+											y: 50,
+											rotateX: 90,
+										},
+										visible: {
+											opacity: 1,
+											y: 0,
+											rotateX: 0,
+										},
+									}}
+								>
+									<GlitchText
+										text={char}
+										as="span"
+										className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-red-950"
+									/>
+								</motion.span>
+							))}
+						</motion.div>
+					</div>
 
-				{/* Name */}
-				<motion.div
-					initial={{ opacity: 0, y: 50 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 1, delay: 0.8 }}
-				>
-					<GlitchText
-						text="BISHAL"
-						as="h1"
-						className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-black"
-					/>
-					<h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mt-2 text-black">
-						DEB ROY
-					</h1>
-				</motion.div>
+					<div className="overflow-hidden">
+						<motion.div
+							initial="hidden"
+							animate="visible"
+							variants={{
+								visible: {
+									transition: {
+										staggerChildren: 0.05,
+										delayChildren: 0.5,
+									},
+								},
+							}}
+							className="flex justify-center mt-2"
+						>
+							{"DEB ROY".split("").map((char, i) => (
+								<motion.span
+									key={i}
+									variants={{
+										hidden: {
+											opacity: 0,
+											x: -20,
+											filter: "blur(10px)",
+										},
+										visible: {
+											opacity: 1,
+											x: 0,
+											filter: "blur(0px)",
+										},
+									}}
+									className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-black"
+								>
+									{char === " " ? "\u00A0" : char}
+								</motion.span>
+							))}
+						</motion.div>
+					</div>
+				</div>
 
-				{/* Animated line */}
-				<motion.div
-					className="w-32 h-1 mx-auto my-6 bg-black"
-					initial={{ scaleX: 0 }}
-					animate={{ scaleX: 1 }}
-					transition={{ duration: 1, delay: 1.2 }}
-				/>
+				<motion.div className="w-32 h-1 mx-auto my-6 bg-black content-stagger opacity-0 translate-y-10" />
 
-				{/* Typing Effect */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 1.5 }}
-					className="text-lg md:text-xl font-mono mb-8 h-8 text-black"
-				>
+				<div className="text-lg md:text-xl font-mono mb-8 h-8 text-black content-stagger opacity-0 translate-y-10">
 					<span className="font-bold">&ldquo;</span>
 					{text}
 					<span className="font-bold">&rdquo;</span>
 					<span className="inline-block w-0.5 h-5 ml-1 align-middle animate-blink bg-black" />
-				</motion.div>
+				</div>
 
-				{/* Tagline */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 2 }}
-					className="mb-12 max-w-2xl mx-auto speech-bubble"
-				>
+				<div className="mb-12 max-w-2xl mx-auto speech-bubble content-stagger opacity-0 translate-y-10">
 					<p className="text-base md:text-lg leading-relaxed text-gray-600">
 						Creative and detail-oriented Software Developer
 						specializing in building
@@ -171,15 +241,9 @@ export default function Hero() {
 						</span>{" "}
 						web apps. Fighting for user-centric experiences.
 					</p>
-				</motion.div>
+				</div>
 
-				{/* CTA Buttons */}
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 2.3 }}
-					className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-				>
+				<div className="flex flex-col sm:flex-row gap-4 justify-center items-center content-stagger opacity-0 translate-y-10">
 					<motion.a
 						href="#projects"
 						className="group relative px-8 py-4 font-bold rounded-lg overflow-hidden bg-black text-white border-3 border-black hover:bg-white hover:text-black transition-all duration-300"
@@ -212,27 +276,7 @@ export default function Hero() {
 					>
 						Contact Me
 					</motion.a>
-				</motion.div>
-
-				{/* Scroll Indicator */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 3 }}
-					className="absolute -bottom-24 left-1/2 -translate-x-1/2"
-				>
-					<motion.div
-						animate={{ y: [0, 10, 0] }}
-						transition={{ duration: 1.5, repeat: Infinity }}
-						className="w-6 h-10 border-2 rounded-full flex justify-center pt-2 border-black/30"
-					>
-						<motion.div
-							animate={{ y: [0, 12, 0] }}
-							transition={{ duration: 1.5, repeat: Infinity }}
-							className="w-1 h-3 rounded-full bg-black"
-						/>
-					</motion.div>
-				</motion.div>
+				</div>
 			</motion.div>
 		</section>
 	);
