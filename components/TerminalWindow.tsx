@@ -1,7 +1,6 @@
 'use client';
 
 import { type ReactNode } from 'react';
-import { useTheme } from '@/components/ThemeProvider';
 
 interface TerminalWindowProps {
   title?: string;
@@ -10,8 +9,6 @@ interface TerminalWindowProps {
 }
 
 export default function TerminalWindow({ title = 'terminal', children, className = '' }: TerminalWindowProps) {
-  const { theme } = useTheme();
-
   return (
     <div className={`terminal-window ${className}`}>
       <div className="terminal-titlebar">
@@ -21,7 +18,7 @@ export default function TerminalWindow({ title = 'terminal', children, className
           <span className="terminal-dot terminal-dot-green" />
         </div>
         <span className="terminal-title">
-          {theme === 'dark' ? `bishal@dev:~$ ${title}` : title}
+          {title}
         </span>
       </div>
       <div className="terminal-body">

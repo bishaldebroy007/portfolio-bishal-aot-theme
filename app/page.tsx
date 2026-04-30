@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="bg-aot-dark-wall text-aot-cream antialiased">
+    <div className="antialiased">
       <Navigation />
       <Hero />
       <About />

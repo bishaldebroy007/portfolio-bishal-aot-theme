@@ -20,18 +20,9 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-32 bg-aot-dark-wall overflow-hidden"
+      className="relative py-32 bg-white overflow-hidden"
       ref={ref}
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-aot-green/5 rounded-full blur-3xl"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
-          transition={{ duration: 5, repeat: Infinity }}
-        />
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -46,22 +37,22 @@ export default function Contact() {
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-aot-green font-bold tracking-widest uppercase text-sm">
+            <span className="text-black font-bold tracking-widest uppercase text-sm">
               Send a Signal
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-black mb-6">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 text-black">
             <span className="gradient-text">Contact</span>{" "}
             <span className="text-aot-cream">Me</span>
           </h2>
           <motion.div
-            className="w-24 h-1 bg-linear-to-r from-transparent via-aot-green to-transparent mx-auto"
+            className="w-24 h-1 bg-black mx-auto"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           />
-          <p className="text-aot-smoke mt-6 max-w-2xl mx-auto">
-            Ready to collaborate or have a question? Let's connect and create
+          <p className="text-gray-600 mt-6 max-w-2xl mx-auto font-medium">
+            Ready to collaborate or have a question? Let&apos;s connect and create
             something amazing together!
           </p>
         </motion.div>
@@ -96,16 +87,6 @@ export default function Contact() {
                 value: "rajroybishal@duck.com",
                 href: "mailto:rajroybishal@duck.com",
               },
-              // {
-              //   icon: (
-              //     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              //       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              //     </svg>
-              //   ),
-              //   label: 'Phone',
-              //   value: '+8801766217660',
-              //   href: 'tel:+8801766217660',
-              // },
               {
                 icon: (
                   <svg
@@ -140,20 +121,20 @@ export default function Contact() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.1 }}
                 whileHover={{ scale: 1.02, x: 10 }}
-                className="glass-card rounded-xl p-6 flex items-center gap-4 group block"
+                className="bg-white border-3 border-black rounded-xl p-6 flex items-center gap-4 group block hover:shadow-[8px_8px_0_#000] transition-all"
               >
                 <motion.div
-                  className="w-14 h-14 rounded-lg bg-aot-green/20 flex items-center justify-center text-aot-green"
+                  className="w-14 h-14 rounded-lg border-2 border-black flex items-center justify-center text-black"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
                 >
                   {contact.icon}
                 </motion.div>
                 <div>
-                  <div className="text-sm text-aot-smoke mb-1">
+                  <div className="text-sm text-gray-500 mb-1 font-bold">
                     {contact.label}
                   </div>
-                  <div className="text-aot-cream font-medium group-hover:text-aot-green transition-colors">
+                  <div className="text-black font-black group-hover:text-aot-red transition-colors">
                     {contact.value}
                   </div>
                 </div>
@@ -161,8 +142,8 @@ export default function Contact() {
             ))}
 
             {/* Social Links */}
-            <div className="glass-card rounded-xl p-6">
-              <h4 className="text-aot-cream font-bold mb-4">Find Me On</h4>
+            <div className="bg-white border-3 border-black rounded-xl p-6">
+              <h4 className="text-black font-black mb-4 uppercase tracking-wider">Find Me On</h4>
               <div className="grid grid-cols-2 gap-3">
                 {[
                   {
@@ -201,9 +182,9 @@ export default function Contact() {
                     transition={{ delay: 0.8 + i * 0.05 }}
                     whileHover={{ scale: 1.05, y: -3 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-4 py-3 bg-aot-dark-wall/50 border border-aot-green/20 rounded-lg text-aot-smoke hover:text-aot-green hover:border-aot-green/40 transition-all text-sm"
+                    className="flex items-center gap-2 px-4 py-3 border-2 border-black rounded-lg text-black hover:bg-black hover:text-white transition-all text-sm font-bold"
                   >
-                    <span className="font-bold text-aot-green">
+                    <span className="font-black text-aot-red">
                       {social.icon}
                     </span>
                     <span>{social.name}</span>
@@ -221,12 +202,12 @@ export default function Contact() {
           >
             <form
               onSubmit={handleSubmit}
-              className="glass-card rounded-2xl p-8 space-y-6"
+              className="bg-white border-3 border-black rounded-2xl p-8 space-y-6"
             >
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-aot-cream mb-2"
+                  className="block text-sm font-black text-black mb-2 uppercase"
                 >
                   Your Name
                 </label>
@@ -238,7 +219,7 @@ export default function Contact() {
                     setFormState({ ...formState, name: e.target.value })
                   }
                   required
-                  className="w-full px-4 py-3 bg-aot-dark-wall/50 border border-aot-cape rounded-lg text-aot-cream placeholder-aot-smoke focus:outline-none focus:border-aot-green focus:ring-2 focus:ring-aot-green/20 transition-all"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-black rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-aot-red transition-all font-bold"
                   placeholder="John Doe"
                   whileFocus={{ scale: 1.01 }}
                 />
@@ -247,7 +228,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-aot-cream mb-2"
+                  className="block text-sm font-black text-black mb-2 uppercase"
                 >
                   Your Email
                 </label>
@@ -259,7 +240,7 @@ export default function Contact() {
                     setFormState({ ...formState, email: e.target.value })
                   }
                   required
-                  className="w-full px-4 py-3 bg-aot-dark-wall/50 border border-aot-cape rounded-lg text-aot-cream placeholder-aot-smoke focus:outline-none focus:border-aot-green focus:ring-2 focus:ring-aot-green/20 transition-all"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-black rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-aot-red transition-all font-bold"
                   placeholder="john@example.com"
                   whileFocus={{ scale: 1.01 }}
                 />
@@ -268,7 +249,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-aot-cream mb-2"
+                  className="block text-sm font-black text-black mb-2 uppercase"
                 >
                   Your Message
                 </label>
@@ -280,7 +261,7 @@ export default function Contact() {
                   }
                   required
                   rows={6}
-                  className="w-full px-4 py-3 bg-aot-dark-wall/50 border border-aot-cape rounded-lg text-aot-cream placeholder-aot-smoke focus:outline-none focus:border-aot-green focus:ring-2 focus:ring-aot-green/20 transition-all resize-none"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-black rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-aot-red transition-all resize-none font-bold"
                   placeholder="Tell me about your project or idea..."
                   whileFocus={{ scale: 1.01 }}
                 />
@@ -290,10 +271,10 @@ export default function Contact() {
                 type="submit"
                 whileHover={{
                   scale: 1.02,
-                  boxShadow: "0 0 30px rgba(45, 212, 191, 0.4)",
+                  boxShadow: "8px 8px 0 #000",
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-4 bg-gradient-to-r from-aot-green-dim to-aot-green text-aot-dark-wall font-bold rounded-lg hover:from-aot-green hover:to-aot-green-dim transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full py-4 bg-black text-white font-black rounded-lg hover:bg-white hover:text-black border-2 border-black transition-all duration-300 flex items-center justify-center gap-2 uppercase tracking-widest"
               >
                 <svg
                   className="w-5 h-5"

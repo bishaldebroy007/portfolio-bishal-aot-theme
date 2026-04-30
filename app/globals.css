@@ -1,36 +1,7 @@
 @import "tailwindcss";
 
-/* ===== DARK THEME (Terminal/Hacker) ===== */
-:root,
-[data-theme="dark"] {
-  --background: #0a0a0a;
-  --foreground: #e0e0e0;
-  --aot-green: #00ff41;
-  --aot-green-dim: #00cc33;
-  --aot-teal: #2dd4bf;
-  --aot-red: #ff0040;
-  --aot-red-dark: #991b1b;
-  --aot-brown: #92400e;
-  --aot-cream: #e0e0e0;
-  --aot-dark-wall: #0a0a0a;
-  --aot-steel: #0f0f0f;
-  --aot-cape: #1a1a1a;
-  --aot-smoke: #777777;
-  --glow-green: 0 0 20px rgba(0, 255, 65, 0.5), 0 0 40px rgba(0, 255, 65, 0.3);
-  --glow-red: 0 0 20px rgba(255, 0, 64, 0.5), 0 0 40px rgba(255, 0, 64, 0.3);
-  --glow-green-lg: 0 0 30px rgba(0, 255, 65, 0.7), 0 0 60px rgba(0, 255, 65, 0.4), 0 0 90px rgba(0, 255, 65, 0.2);
-  --card-bg: rgba(0, 255, 65, 0.03);
-  --card-border: rgba(0, 255, 65, 0.2);
-  --card-border-hover: rgba(0, 255, 65, 0.6);
-  --card-border-width: 1px;
-  --terminal-dots-show: flex;
-  --manga-border-show: none;
-  --scanline-opacity: 0.03;
-  --screentone-opacity: 0;
-}
-
-/* ===== LIGHT THEME (Manga Page) ===== */
-[data-theme="light"] {
+/* ===== THEME (Manga Page) ===== */
+:root {
   --background: #fafafa;
   --foreground: #111111;
   --aot-green: #00883a;
@@ -102,7 +73,7 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* ===== TERMINAL CARD (Dark Mode) ===== */
+/* ===== TERMINAL CARD (Fallback, adjusted for light) ===== */
 .terminal-window {
   background: var(--card-bg);
   border: var(--card-border-width) solid var(--card-border);
@@ -115,18 +86,16 @@ body {
   border-color: var(--card-border-hover);
 }
 
-[data-theme="dark"] .terminal-window:hover {
-  box-shadow: var(--glow-green);
-}
-
 .terminal-titlebar {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 10px 14px;
-  border-bottom: 1px solid var(--card-border);
+  border-bottom: var(--card-border-width) solid #000;
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  background: #f0f0f0;
+  font-weight: 700;
 }
 
 .terminal-dots {
@@ -145,19 +114,9 @@ body {
 .terminal-dot-green { background: #27c93f; }
 
 .terminal-title {
-  color: var(--aot-smoke);
+  color: #000;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-}
-
-[data-theme="light"] .terminal-titlebar {
-  background: #f0f0f0;
-  border-bottom: var(--card-border-width) solid #000;
-  font-weight: 700;
-}
-
-[data-theme="light"] .terminal-title {
-  color: #000;
   font-weight: 700;
 }
 
@@ -166,27 +125,14 @@ body {
   font-family: var(--font-mono);
 }
 
-/* ===== MANGA PANEL (Light Mode) ===== */
+/* ===== MANGA PANEL ===== */
 .manga-panel {
   background: var(--card-bg);
   border: var(--card-border-width) solid var(--card-border);
   position: relative;
   transition: transform 0.2s ease;
-}
-
-[data-theme="light"] .manga-panel {
   border-width: 3px;
   border-color: #000;
-}
-
-[data-theme="dark"] .manga-panel {
-  border-color: var(--card-border);
-  border-width: 1px;
-}
-
-[data-theme="dark"] .manga-panel:hover {
-  box-shadow: var(--glow-green);
-  border-color: var(--card-border-hover);
 }
 
 /* ===== SCREENTONE PATTERN ===== */
@@ -225,79 +171,29 @@ body {
   z-index: 0;
 }
 
-[data-theme="dark"] .speed-lines::after {
-  display: none;
-}
-
 /* ===== INK BORDER ===== */
 .ink-border {
   border: 3px solid #000;
 }
 
-[data-theme="dark"] .ink-border {
-  border-color: var(--aot-green);
-  border-width: 1px;
-}
-
-/* ===== SCANLINE OVERLAY ===== */
-.scanline::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 255, 65, var(--scanline-opacity)) 2px,
-    rgba(0, 255, 65, var(--scanline-opacity)) 4px
-  );
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* ===== TEXT GLOW ===== */
-[data-theme="dark"] .text-glow {
-  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.3);
-}
-
-/* ===== GLASS CARD (Backward compatible, theme-aware) ===== */
+/* ===== GLASS CARD ===== */
 .glass-card {
-  background: var(--card-bg);
-  border: var(--card-border-width) solid var(--card-border);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-[data-theme="dark"] .glass-card {
-  backdrop-filter: blur(10px);
-}
-
-[data-theme="dark"] .glass-card:hover {
-  border-color: rgba(0, 255, 65, 0.5);
-  box-shadow: var(--glow-green);
-}
-
-[data-theme="light"] .glass-card {
   background: #fff;
   border-color: #000;
   border-width: 2px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
 }
 
-[data-theme="light"] .glass-card:hover {
+.glass-card:hover {
   transform: translate(-2px, -2px);
   box-shadow: 4px 4px 0 #000;
 }
 
 /* ===== GRADIENT TEXT ===== */
 .gradient-text {
-  background: linear-gradient(135deg, var(--aot-green) 0%, var(--aot-teal) 50%, var(--aot-red) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-[data-theme="light"] .gradient-text {
   background: linear-gradient(135deg, #000 0%, #333 50%, var(--aot-red) 100%);
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
@@ -310,24 +206,6 @@ body {
 
 /* ===== WALL TEXTURE ===== */
 .wall-texture {
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 50px,
-      rgba(0, 255, 65, 0.02) 50px,
-      rgba(0, 255, 65, 0.02) 51px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 50px,
-      rgba(0, 255, 65, 0.02) 50px,
-      rgba(0, 255, 65, 0.02) 51px
-    );
-}
-
-[data-theme="light"] .wall-texture {
   background-image:
     repeating-linear-gradient(
       0deg,
@@ -356,15 +234,6 @@ body {
   100% { transform: translateY(100vh); }
 }
 
-@keyframes glitch {
-  0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 2px); }
-  20% { clip-path: inset(92% 0 1% 0); transform: translate(1px, -1px); }
-  40% { clip-path: inset(43% 0 1% 0); transform: translate(-1px, 3px); }
-  60% { clip-path: inset(25% 0 58% 0); transform: translate(3px, 1px); }
-  80% { clip-path: inset(54% 0 7% 0); transform: translate(-3px, -2px); }
-  100% { clip-path: inset(58% 0 43% 0); transform: translate(2px, -3px); }
-}
-
 @keyframes manga-zoom {
   0% { transform: scale(0.8); opacity: 0; }
   50% { transform: scale(1.05); }
@@ -386,17 +255,6 @@ body {
   50% { opacity: 1; }
 }
 
-@keyframes steam-rise {
-  0% { transform: translateY(100%) scale(0.5); opacity: 0; }
-  50% { opacity: 0.3; }
-  100% { transform: translateY(-100%) scale(1.5); opacity: 0; }
-}
-
-@keyframes wall-crack {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.8; }
-}
-
 @keyframes title-reveal {
   0% {
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
@@ -408,66 +266,26 @@ body {
   }
 }
 
-@keyframes typing-cursor {
-  0%, 100% { border-color: var(--aot-green); }
-  50% { border-color: transparent; }
-}
-
 /* ===== ANIMATION UTILITIES ===== */
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
-.animate-steam { animation: steam-rise 4s ease-in-out infinite; }
-.animate-wall-crack { animation: wall-crack 3s ease-in-out infinite; }
 .animate-blink { animation: blink-cursor 1s step-end infinite; }
 
-/* ===== GLITCH TEXT ===== */
+/* ===== GLITCH TEXT (Disabled or simplified for light) ===== */
 .glitch-text {
   position: relative;
-}
-
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-}
-
-[data-theme="dark"] .glitch-text:hover::before {
-  animation: glitch 0.3s linear infinite;
-  color: var(--aot-green);
-  opacity: 0.8;
-  z-index: -1;
-  left: 2px;
-}
-
-[data-theme="dark"] .glitch-text:hover::after {
-  animation: glitch 0.3s linear infinite reverse;
-  color: var(--aot-red);
-  opacity: 0.8;
-  z-index: -1;
-  left: -2px;
 }
 
 /* ===== MANGA SPEECH BUBBLE ===== */
 .speech-bubble {
   position: relative;
-  background: var(--aot-dark-wall);
-  border: var(--card-border-width) solid var(--card-border);
-  border-radius: 12px;
-  padding: 16px 20px;
-}
-
-[data-theme="light"] .speech-bubble {
   background: #fff;
   border: 3px solid #000;
   border-radius: 20px;
+  padding: 16px 20px;
 }
 
-[data-theme="light"] .speech-bubble::after {
+.speech-bubble::after {
   content: '';
   position: absolute;
   bottom: -12px;
@@ -479,13 +297,7 @@ body {
   border-top: 12px solid #000;
 }
 
-/* ===== TERMINAL PROMPT ===== */
+/* ===== TERMINAL PROMPT (Simplified for light) ===== */
 .terminal-prompt::before {
-  content: '> ';
-  color: var(--aot-green);
-  font-weight: bold;
-}
-
-[data-theme="light"] .terminal-prompt::before {
   content: '';
 }
