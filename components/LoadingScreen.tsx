@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '@/components/ThemeProvider';
 
 interface RainDrop {
   left: string;
@@ -15,15 +14,14 @@ export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [phase, setPhase] = useState<'rain' | 'flash' | 'typing' | 'done'>('rain');
-  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [rainDrops, setRainDrops] = useState<RainDrop[]>([]);
 
-  const fullText = '> initializing portfolio...';
+  const fullText = 'INITIALIZING BATTLE RECORD...';
 
   useEffect(() => {
     setMounted(true);
-    const chars = '{}();<>=/';
+    const chars = '!?!*...';
     setRainDrops(
       Array.from({ length: 30 }, (_, i) => ({
         left: `${(i / 30) * 100}%`,
@@ -62,10 +60,7 @@ export default function LoadingScreen() {
     <AnimatePresence>
       {loading && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center cursor-pointer"
-          style={{
-            background: theme === 'dark' ? '#000' : '#fff',
-          }}
+          className="fixed inset-0 z-[100] flex items-center justify-center cursor-pointer bg-white"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           onClick={() => setLoading(false)}
@@ -79,9 +74,7 @@ export default function LoadingScreen() {
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ duration: 0.4 }}
                 style={{
-                  background: theme === 'dark'
-                    ? 'radial-gradient(circle, rgba(0,255,65,0.8) 0%, rgba(0,255,65,0) 70%)'
-                    : 'radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 70%)',
+                  background: 'radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 70%)',
                 }}
               />
             )}
@@ -104,7 +97,7 @@ export default function LoadingScreen() {
             <path
               d="M50 5 L15 25 L25 50 L15 75 L50 50 L85 75 L75 50 L85 25 Z"
               fill="none"
-              stroke={theme === 'dark' ? '#00ff41' : '#000'}
+              stroke="#000"
               strokeWidth="2"
               opacity="0.3"
             />
@@ -115,16 +108,11 @@ export default function LoadingScreen() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="font-mono text-lg md:text-xl relative z-10"
-              style={{ color: theme === 'dark' ? '#00ff41' : '#000' }}
+              className="font-black text-lg md:text-xl relative z-10 text-black uppercase tracking-widest"
             >
               {text}
               <span
-                className="inline-block w-2 h-5 ml-1 align-middle"
-                style={{
-                  background: theme === 'dark' ? '#00ff41' : '#000',
-                  animation: 'blink-cursor 1s step-end infinite',
-                }}
+                className="inline-block w-2 h-5 ml-1 align-middle bg-black animate-blink"
               />
             </motion.div>
           )}
@@ -135,11 +123,9 @@ export default function LoadingScreen() {
               {rainDrops.map((drop, i) => (
                 <motion.div
                   key={i}
-                  className="absolute font-mono text-xs"
+                  className="absolute font-black text-xs text-black opacity-30"
                   style={{
                     left: drop.left,
-                    color: theme === 'dark' ? '#00ff41' : '#000',
-                    opacity: 0.3,
                   }}
                   initial={{ y: -20 }}
                   animate={{ y: '100vh' }}
@@ -157,8 +143,7 @@ export default function LoadingScreen() {
 
           {/* Skip hint */}
           <motion.p
-            className="absolute bottom-8 text-xs font-mono"
-            style={{ color: theme === 'dark' ? '#333' : '#ccc' }}
+            className="absolute bottom-8 text-xs font-bold text-gray-300 uppercase tracking-widest"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}

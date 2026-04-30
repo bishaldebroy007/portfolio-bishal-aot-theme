@@ -2,7 +2,6 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { useTheme } from '@/components/ThemeProvider';
 
 interface GlitchTextProps {
   text: string;
@@ -13,19 +12,6 @@ interface GlitchTextProps {
 export default function GlitchText({ text, as: Tag = 'h2', className = '' }: GlitchTextProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const { theme } = useTheme();
-
-  if (theme === 'dark') {
-    return (
-      <Tag
-        ref={ref}
-        data-text={text}
-        className={`glitch-text ${className}`}
-      >
-        {text}
-      </Tag>
-    );
-  }
 
   return (
     <motion.span

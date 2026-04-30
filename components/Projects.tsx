@@ -1,19 +1,12 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { GoOrganization } from "react-icons/go";
 import { VscFilePdf } from "react-icons/vsc";
 import { TbMoneybag } from "react-icons/tb";
 import { HiDevicePhoneMobile } from "react-icons/hi2";
 import { MdOutlineFoodBank } from "react-icons/md";
-
-interface Particle {
-  left: number;
-  top: number;
-  delay: number;
-  duration: number;
-}
 
 const projects = [
   {
@@ -94,52 +87,13 @@ const certificates = [
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [mounted, setMounted] = useState(false);
-  const [particles, setParticles] = useState<Particle[]>([]);
-
-  useEffect(() => {
-    setMounted(true);
-    setParticles(
-      Array.from({ length: 20 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        delay: Math.random() * 2,
-        duration: 3 + Math.random() * 2,
-      })),
-    );
-  }, []);
 
   return (
     <section
       id="projects"
-      className="relative py-32 bg-aot-steel overflow-hidden"
+      className="relative py-32 bg-gray-50 overflow-hidden screentone"
       ref={ref}
     >
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        {mounted &&
-          particles.map((particle, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-aot-green/30 rounded-full"
-              style={{
-                left: `${particle.left}%`,
-                top: `${particle.top}%`,
-              }}
-              animate={{
-                y: [0, -50, 0],
-                opacity: [0.1, 0.5, 0.1],
-              }}
-              transition={{
-                duration: particle.duration,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: particle.delay,
-              }}
-            />
-          ))}
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -154,16 +108,16 @@ export default function Projects() {
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-aot-green font-bold tracking-widest uppercase text-sm">
+            <span className="text-black font-bold tracking-widest uppercase text-sm">
               Missions Completed
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-black mb-6">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 text-black">
             <span className="gradient-text">Projects</span>{" "}
             <span className="text-aot-cream">& Certificates</span>
           </h2>
           <motion.div
-            className="w-24 h-1 bg-linear-to-r from-transparent via-aot-green to-transparent mx-auto"
+            className="w-24 h-1 bg-black mx-auto"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -179,12 +133,9 @@ export default function Projects() {
               animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
               transition={{ duration: 0.8, delay: index * 0.15 }}
               whileHover={{ scale: 1.05, y: -10 }}
-              className="glass-card rounded-2xl overflow-hidden group relative"
+              className="bg-white border-3 border-black rounded-2xl overflow-hidden group relative hover:shadow-[8px_8px_0_#000] transition-all"
               style={{ perspective: "1000px" }}
             >
-              {/* Card Header */}
-              <div className={`h-2 bg-linear-to-r ${project.color}`} />
-
               <div className="p-6">
                 {/* Icon & Status */}
                 <div className="flex items-center justify-between mb-4">
@@ -196,23 +147,17 @@ export default function Projects() {
                     {project.icon}
                   </motion.div>
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      project.status === "Completed"
-                        ? "bg-aot-green/20 text-aot-green border border-aot-green/40"
-                        : project.status === "In Progress"
-                          ? "bg-aot-cream/20 text-aot-cream border border-aot-cream/40"
-                          : "bg-aot-red/20 text-aot-red border border-aot-red/40"
-                    }`}
+                    className="px-3 py-1 rounded-full text-xs font-bold bg-white border-2 border-black text-black"
                   >
                     {project.status}
                   </span>
                 </div>
 
                 {/* Title & Description */}
-                <h3 className="text-xl font-bold text-aot-cream mb-3 group-hover:text-aot-green transition-colors">
+                <h3 className="text-xl font-black text-black mb-3 group-hover:text-aot-red transition-colors uppercase">
                   {project.title}
                 </h3>
-                <p className="text-sm text-aot-smoke mb-4 leading-relaxed">
+                <p className="text-sm text-gray-600 mb-4 leading-relaxed font-medium">
                   {project.description}
                 </p>
 
@@ -224,7 +169,7 @@ export default function Projects() {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={isInView ? { opacity: 1, scale: 1 } : {}}
                       transition={{ delay: 0.5 + index * 0.15 + i * 0.05 }}
-                      className="px-2 py-1 bg-aot-dark-wall/50 rounded text-xs text-aot-green border border-aot-green/20"
+                      className="px-2 py-1 border-2 border-black rounded text-xs text-black font-bold"
                     >
                       {tech}
                     </motion.span>
@@ -232,7 +177,7 @@ export default function Projects() {
                 </div>
 
                 {/* Period */}
-                <div className="text-xs text-aot-smoke mb-4">
+                <div className="text-xs text-gray-400 font-bold mb-4">
                   {project.period}
                 </div>
 
@@ -243,7 +188,7 @@ export default function Projects() {
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 text-center py-2 bg-aot-green/10 border border-aot-green/30 rounded-lg text-aot-green text-sm font-medium hover:bg-aot-green/20 transition-colors"
+                      className="flex-1 text-center py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -252,11 +197,6 @@ export default function Projects() {
                   )}
                 </div>
               </div>
-
-              {/* Hover Glow Effect */}
-              <motion.div
-                className={`absolute inset-0 bg-linear-to-bl ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none`}
-              />
             </motion.div>
           ))}
         </div>
@@ -267,8 +207,8 @@ export default function Projects() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h3 className="text-3xl font-black text-center mb-12">
-            <span className="gradient-text">Certificates</span>
+          <h3 className="text-3xl font-black text-center mb-12 text-black uppercase">
+            Certificates
           </h3>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -279,15 +219,15 @@ export default function Projects() {
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ delay: 1 + index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="glass-card rounded-xl p-6 text-center group"
+                className="bg-white border-3 border-black rounded-xl p-6 text-center group hover:shadow-[8px_8px_0_#000] transition-all"
               >
                 <motion.div
-                  className="w-16 h-16 mx-auto mb-4 rounded-full bg-linear-to-br from-aot-green/20 to-aot-cream/20 flex items-center justify-center"
+                  className="w-16 h-16 mx-auto mb-4 rounded-full border-2 border-black flex items-center justify-center"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
                 >
                   <svg
-                    className="w-8 h-8 text-aot-green"
+                    className="w-8 h-8 text-black"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -301,13 +241,13 @@ export default function Projects() {
                   </svg>
                 </motion.div>
 
-                <h4 className="text-lg font-bold text-aot-cream mb-2 group-hover:text-aot-green transition-colors">
+                <h4 className="text-lg font-black text-black mb-2 group-hover:text-aot-red transition-colors uppercase">
                   {cert.title}
                 </h4>
-                <p className="text-sm text-aot-smoke mb-2">
+                <p className="text-sm text-gray-600 mb-2 font-bold">
                   {cert.description}
                 </p>
-                <div className="text-xs text-aot-cape">
+                <div className="text-xs text-gray-400 font-black">
                   {cert.issuer} • {cert.date}
                 </div>
               </motion.div>
@@ -320,19 +260,17 @@ export default function Projects() {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.5 }}
-          className="mt-16 glass-card rounded-2xl p-8 relative overflow-hidden"
+          className="mt-16 bg-white border-3 border-black rounded-2xl p-8 relative overflow-hidden hover:shadow-[12px_12px_0_#000] transition-all"
         >
-          <div className="absolute top-0 right-0 w-40 h-40 bg-linear-to-bl from-aot-red/20 to-transparent rounded-bl-full" />
-
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-4">
               <motion.div
-                className="w-12 h-12 rounded-xl bg-aot-red/20 flex items-center justify-center"
+                className="w-12 h-12 rounded-xl border-2 border-black flex items-center justify-center"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
               >
                 <svg
-                  className="w-6 h-6 text-aot-red"
+                  className="w-6 h-6 text-black"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -346,23 +284,23 @@ export default function Projects() {
                 </svg>
               </motion.div>
               <div>
-                <h3 className="text-2xl font-bold text-aot-cream">
+                <h3 className="text-2xl font-black text-black uppercase">
                   Publication
                 </h3>
-                <p className="text-sm text-aot-smoke">
+                <p className="text-sm text-gray-500 font-bold">
                   COMPASS &apos;24: ACM SIGCAS/SIGCHI Conference
                 </p>
               </div>
             </div>
 
-            <p className="text-aot-smoke leading-relaxed mb-4">
-              <span className="text-aot-green font-semibold">
+            <p className="text-black font-black leading-relaxed mb-4 text-lg">
+              <span className="text-aot-red italic">
                 &quot;Bridging the Gap: Exploring the Factors Influencing
                 Women&apos;s Adoption of Mobile Financial Services (MFS) in
                 Rural Areas of Bangladesh&quot;
               </span>
             </p>
-            <p className="text-sm text-aot-cape mb-4">
+            <p className="text-sm text-gray-600 mb-4 font-bold">
               Authors: Bishal Deb Roy, Sumaia Arefin Ritu, Anika Priodorshinee
               Mrittika, and Jannatun Noor
             </p>
@@ -371,7 +309,7 @@ export default function Projects() {
               href="https://dl.acm.org/doi/10.1145/3663670.3663678"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-aot-red/10 border border-aot-red/30 rounded-lg text-aot-red text-sm font-medium hover:bg-aot-red/20 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors uppercase tracking-wider"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

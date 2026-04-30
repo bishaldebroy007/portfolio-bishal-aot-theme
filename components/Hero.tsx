@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useTheme } from '@/components/ThemeProvider';
 import GlitchText from '@/components/GlitchText';
 
 interface Particle {
@@ -10,10 +9,7 @@ interface Particle {
   top: number;
   delay: number;
   duration: number;
-  char: string;
 }
-
-const codeChars = ['{', '}', '(', ')', '<', '>', '/', '=', ';', '=>', '()', '[]', '&&', '||', '!=', '++'];
 
 export default function Hero() {
   const { scrollY } = useScroll();
@@ -23,8 +19,6 @@ export default function Hero() {
   const fullText = 'Junior Software Engineer';
   const [mounted, setMounted] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
-  const [steamDurations, setSteamDurations] = useState<number[]>([]);
-  const { theme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -34,10 +28,8 @@ export default function Hero() {
         top: Math.random() * 100,
         delay: Math.random() * 2,
         duration: 3 + Math.random() * 2,
-        char: codeChars[Math.floor(Math.random() * codeChars.length)],
       }))
     );
-    setSteamDurations(Array.from({ length: 6 }, () => 8 + Math.random() * 4));
   }, []);
 
   useEffect(() => {
@@ -56,55 +48,23 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className={`relative min-h-screen flex items-center justify-center overflow-hidden ${
-        theme === 'dark' ? 'bg-black' : 'bg-white screentone'
-      }`}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white screentone"
     >
-      {/* Dark: Animated background grid */}
-      {theme === 'dark' && (
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 wall-texture" />
-          {/* Steam particles */}
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={`steam-${i}`}
-              className="absolute w-32 h-32 rounded-full bg-gradient-to-t from-aot-green/5 to-transparent"
-              style={{ left: `${10 + i * 15}%`, bottom: '-10%' }}
-              animate={{
-                y: [-100, -800, -100],
-                opacity: [0, 0.2, 0],
-                scale: [0.5, 1.5],
-              }}
-              transition={{
-                duration: steamDurations[i] || 10,
-                repeat: Infinity,
-                ease: 'easeOut',
-                delay: i * 0.7,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
       {/* Light: Speed lines background */}
-      {theme === 'light' && (
-        <div className="absolute inset-0 speed-lines" />
-      )}
+      <div className="absolute inset-0 speed-lines" />
 
-      {/* Floating code characters (dark) / manga marks (light) */}
+      {/* Manga marks */}
       {mounted &&
         particles.map((p, i) => (
           <motion.div
             key={`particle-${i}`}
-            className={`absolute font-mono text-xs pointer-events-none ${
-              theme === 'dark' ? 'text-aot-green/30' : 'text-black/10 font-black text-sm'
-            }`}
+            className="absolute font-mono pointer-events-none text-black/10 font-black text-sm"
             style={{ left: `${p.left}%`, top: `${p.top}%` }}
             animate={{
               y: [0, -40, 0],
               x: [0, (p.left % 20) - 10, 0],
               opacity: [0.1, 0.5, 0.1],
-              rotate: theme === 'light' ? [0, 10, 0] : undefined,
+              rotate: [0, 10, 0],
             }}
             transition={{
               duration: p.duration,
@@ -113,7 +73,7 @@ export default function Hero() {
               delay: p.delay,
             }}
           >
-            {theme === 'dark' ? p.char : ['!', '!!', '?!', '...', '*'][i % 5]}
+            {['!', '!!', '?!', '...', '*'][i % 5]}
           </motion.div>
         ))}
 
@@ -134,24 +94,24 @@ export default function Hero() {
         >
           <defs>
             <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={theme === 'dark' ? '#00ff41' : '#000'} />
-              <stop offset="100%" stopColor={theme === 'dark' ? '#2dd4bf' : '#333'} />
+              <stop offset="0%" stopColor="#000" />
+              <stop offset="100%" stopColor="#333" />
             </linearGradient>
           </defs>
           <path
             d="M50 5 L15 25 L25 50 L15 75 L50 50 L85 75 L75 50 L85 25 Z"
             fill="none"
             stroke="url(#wingGrad)"
-            strokeWidth={theme === 'dark' ? '2' : '3'}
+            strokeWidth="3"
           />
           <circle
             cx="50"
             cy="50"
             r="10"
-            fill={theme === 'dark' ? '#00ff41' : '#000'}
+            fill="#000"
             opacity="0.8"
           />
-          <circle cx="50" cy="50" r="5" fill={theme === 'dark' ? '#000' : '#fff'} />
+          <circle cx="50" cy="50" r="5" fill="#fff" />
         </motion.svg>
 
         {/* Name */}
@@ -163,24 +123,16 @@ export default function Hero() {
           <GlitchText
             text="BISHAL"
             as="h1"
-            className={`text-5xl md:text-7xl lg:text-8xl font-black tracking-tight ${
-              theme === 'dark' ? 'text-aot-green text-glow' : 'text-black'
-            }`}
+            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-black"
           />
-          <h1 className={`text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mt-2 ${
-            theme === 'dark' ? 'text-aot-cream' : 'text-black'
-          }`}>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mt-2 text-black">
             DEB ROY
           </h1>
         </motion.div>
 
         {/* Animated line */}
         <motion.div
-          className={`w-32 h-1 mx-auto my-6 ${
-            theme === 'dark'
-              ? 'bg-gradient-to-r from-transparent via-aot-green to-transparent shadow-[0_0_10px_rgba(0,255,65,0.5)]'
-              : 'bg-black'
-          }`}
+          className="w-32 h-1 mx-auto my-6 bg-black"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
@@ -191,24 +143,12 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className={`text-lg md:text-xl font-mono mb-8 h-8 ${
-            theme === 'dark' ? 'text-aot-green' : 'text-black'
-          }`}
+          className="text-lg md:text-xl font-mono mb-8 h-8 text-black"
         >
-          {theme === 'dark' && (
-            <span className="text-aot-smoke">{`> role: "`}</span>
-          )}
-          {theme === 'light' && (
-            <span className="font-bold">&ldquo;</span>
-          )}
+          <span className="font-bold">&ldquo;</span>
           {text}
-          {theme === 'dark' && <span className="text-aot-smoke">{`"`}</span>}
-          {theme === 'light' && <span className="font-bold">&rdquo;</span>}
-          <span
-            className={`inline-block w-0.5 h-5 ml-1 align-middle animate-blink ${
-              theme === 'dark' ? 'bg-aot-green' : 'bg-black'
-            }`}
-          />
+          <span className="font-bold">&rdquo;</span>
+          <span className="inline-block w-0.5 h-5 ml-1 align-middle animate-blink bg-black" />
         </motion.div>
 
         {/* Tagline */}
@@ -216,13 +156,9 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
-          className={`mb-12 max-w-2xl mx-auto ${
-            theme === 'light' ? 'speech-bubble' : ''
-          }`}
+          className="mb-12 max-w-2xl mx-auto speech-bubble"
         >
-          <p className={`text-base md:text-lg leading-relaxed ${
-            theme === 'dark' ? 'text-aot-smoke' : 'text-gray-600'
-          }`}>
+          <p className="text-base md:text-lg leading-relaxed text-gray-600">
             Creative and detail-oriented Software Engineer specializing in building
             <span className="text-aot-green font-semibold"> accessible</span> and{' '}
             <span className="text-aot-green font-semibold">optimized</span> web
@@ -239,16 +175,11 @@ export default function Hero() {
         >
           <motion.a
             href="#projects"
-            className={`group relative px-8 py-4 font-bold rounded-lg overflow-hidden ${
-              theme === 'dark'
-                ? 'bg-aot-green/10 border border-aot-green text-aot-green hover:bg-aot-green hover:text-black font-mono'
-                : 'bg-black text-white border-3 border-black hover:bg-white hover:text-black'
-            } transition-all duration-300`}
+            className="group relative px-8 py-4 font-bold rounded-lg overflow-hidden bg-black text-white border-3 border-black hover:bg-white hover:text-black transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <span className="relative z-10 flex items-center gap-2">
-              {theme === 'dark' && <span className="text-aot-smoke">[ENTER]</span>}
               View My Work
               <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -258,15 +189,10 @@ export default function Hero() {
 
           <motion.a
             href="#contact"
-            className={`px-8 py-4 font-bold rounded-lg transition-all duration-300 ${
-              theme === 'dark'
-                ? 'border border-aot-green/50 text-aot-green hover:border-aot-green hover:shadow-[0_0_20px_rgba(0,255,65,0.3)] font-mono'
-                : 'border-3 border-black text-black hover:bg-black hover:text-white'
-            }`}
+            className="px-8 py-4 font-bold rounded-lg transition-all duration-300 border-3 border-black text-black hover:bg-black hover:text-white"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {theme === 'dark' && <span className="text-aot-smoke">[TAB] </span>}
             Contact Me
           </motion.a>
         </motion.div>
@@ -281,16 +207,12 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className={`w-6 h-10 border-2 rounded-full flex justify-center pt-2 ${
-              theme === 'dark' ? 'border-aot-green/50' : 'border-black/30'
-            }`}
+            className="w-6 h-10 border-2 rounded-full flex justify-center pt-2 border-black/30"
           >
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className={`w-1 h-3 rounded-full ${
-                theme === 'dark' ? 'bg-aot-green' : 'bg-black'
-              }`}
+              className="w-1 h-3 rounded-full bg-black"
             />
           </motion.div>
         </motion.div>
