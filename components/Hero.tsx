@@ -22,8 +22,9 @@ interface Particle {
 export default function Hero() {
 	const { scrollY } = useScroll();
 	const y2 = useTransform(scrollY, [0, 500], [0, -150]);
-	const leviY = useTransform(scrollY, [0, 500], [0, 100]);
+	const leviY = useTransform(scrollY, [0, 500], [0, 80]);
 	const leviRotate = useTransform(scrollY, [0, 500], [0, 5]);
+	const leviScrollOpacity = useTransform(scrollY, [0, 400], [1, 0]);
 	const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 	const [text, setText] = useState("");
 	const fullText = "Software Developer";
@@ -84,9 +85,10 @@ export default function Hero() {
 			{/* Levi Background Element */}
 			{mounted && (
 				<motion.div
-					className="absolute right-0 bottom-0 w-[45%] md:w-[35%] lg:w-[32%] pointer-events-none z-5 select-none"
+					className="absolute right-[-10%] md:right-0 bottom-0 w-[65%] md:w-[35%] lg:w-[32%] pointer-events-none z-5 select-none"
 					initial={{ x: 150, opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
+					style={{ opacity: leviScrollOpacity }}
 					transition={{
 						duration: 1.8,
 						delay: 0.8,
@@ -95,7 +97,7 @@ export default function Hero() {
 				>
 					<motion.div
 						style={{ y: leviY, rotate: leviRotate }}
-						className="relative w-full h-full grayscale opacity-25"
+						className="relative w-full h-full grayscale opacity-20 md:opacity-25"
 						initial={{ scale: 0.85, rotate: 12 }}
 						animate={{ scale: 1, rotate: 0 }}
 						transition={{
@@ -245,7 +247,7 @@ export default function Hero() {
 									<GlitchText
 										text={char}
 										as="span"
-										className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-red-950"
+										className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-red-950"
 									/>
 								</motion.span>
 							))}
@@ -281,7 +283,7 @@ export default function Hero() {
 											filter: "blur(0px)",
 										},
 									}}
-									className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-black"
+									className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-black"
 								>
 									{char === " " ? "\u00A0" : char}
 								</motion.span>
