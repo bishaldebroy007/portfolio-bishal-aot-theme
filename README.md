@@ -1,18 +1,24 @@
+# Bishal Deb Roy | Portfolio
+
+This is a personal portfolio website built with [Next.js](https://nextjs.org/).
+
 ## Getting Started
 
 First, run the development server:
 
 ```bash
 pnpm dev
-# or
-bun dev
-# or
-yarn dev
-# or
-npm run dev
 ```
+
+## Available Scripts
+
+- `pnpm dev` - Starts the development server.
+- `pnpm build` - Builds the application for production.
+- `pnpm start` - Starts the production server.
+- `pnpm lint` - Runs ESLint.
 
 ## Progress Made in the Project
 
-- Create Sections like Nav-bar, Footer, About Me, Skills, Experience & Education, Project & Certificates, COntact, and Footer.
-- Add Proper animation, mainting the color theme.
+- Created primary sections: Navigation, About Me, Skills, Experience & Education, Projects & Certificates, and Footer.
+- Implemented animations using Framer Motion.
+- Maintained a consistent color theme.
