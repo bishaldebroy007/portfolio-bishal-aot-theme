@@ -137,7 +137,7 @@ export default function AfterHours() {
 								zIndex: 20,
 								transition: { duration: 0.2 },
 							}}
-							className="bg-aot-cream/30 border-3 border-black p-6 relative group cursor-pointer overflow-hidden"
+							className="bg-aot-cream/30 border-3 border-black p-6 relative group cursor-pointer overflow-hidden rounded-3xl"
 						>
 							{/* Decorative "Classified" Stamp */}
 							<div className="absolute -right-4 -top-4 opacity-10 group-hover:opacity-20 transition-opacity">
