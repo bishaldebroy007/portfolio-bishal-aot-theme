@@ -4,10 +4,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { GoOrganization } from "react-icons/go";
 import { VscFilePdf } from "react-icons/vsc";
-import { TbMoneybag } from "react-icons/tb";
+// import { TbMoneybag } from "react-icons/tb";
 import { HiDevicePhoneMobile } from "react-icons/hi2";
 import { MdOutlineFoodBank } from "react-icons/md";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { FaGithub } from "react-icons/fa";
+import { AiFillThunderbolt } from "react-icons/ai";
 
 const projects = [
 	{
@@ -211,33 +213,30 @@ export default function Projects() {
 								</div>
 
 								{/* Action Buttons */}
-								<div className="flex gap-2">
+								<div className="flex gap-2 mt-auto">
 									{project.live && (
 										<motion.a
 											href={project.live}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="flex-1 text-center py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors"
+											className="flex-1 flex items-center justify-center py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors"
 											whileHover={{ scale: 1.05 }}
 											whileTap={{ scale: 0.95 }}
 										>
-											Live Demo →
+											<AiFillThunderbolt size="18" /> Live
+											Demo
 										</motion.a>
 									)}
-								</div>
-
-								{/* Github Button */}
-								<div className="flex gap-2 mt-1.5">
 									{project.github && (
 										<motion.a
 											href={project.github}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="flex-1 text-center py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors"
+											className="flex-1 flex items-center justify-center gap-2 py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors"
 											whileHover={{ scale: 1.05 }}
 											whileTap={{ scale: 0.95 }}
 										>
-											Github →
+											<FaGithub size="18" /> GitHub
 										</motion.a>
 									)}
 								</div>
