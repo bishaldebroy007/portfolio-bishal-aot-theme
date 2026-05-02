@@ -19,6 +19,6 @@ pnpm dev
 
 ## Progress Made in the Project
 
-- Created primary sections: Navigation, About Me, Skills, Experience & Education, Projects & Certificates, and Footer.
+- Created primary sections: Navigation, About Me, Skills, Experience & Education, Projects & Certificates, After Hours, and Footer.
 - Implemented animations using Framer Motion.
 - Maintained a consistent color theme.
