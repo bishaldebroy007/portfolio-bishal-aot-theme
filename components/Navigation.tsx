@@ -13,11 +13,15 @@ export default function Navigation() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
       const sections = navLinks.map((link) => link.href.substring(1));
+      
       for (const section of [...sections].reverse()) {
         const el = document.getElementById(section);
-        if (el && el.getBoundingClientRect().top <= 200) {
-          setActiveSection(section);
-          break;
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 300) {
+            setActiveSection(section);
+            break;
+          }
         }
       }
     };
