@@ -71,12 +71,21 @@ export interface ContactInfo {
   iconType: 'email' | 'location';
 }
 
+export interface Recommendation {
+  title: string;
+  category: 'Movie' | 'Series' | 'Anime' | 'Book' | 'Article' | 'Podcast';
+  rating?: string;
+  description: string;
+  link?: string;
+}
+
 export const navLinks: NavLink[] = [
   { name: 'Home', href: '#home', command: 'cd ~' },
   { name: 'About', href: '#about', command: 'cat about.md' },
   { name: 'Skills', href: '#skills', command: 'cat skills.json' },
   { name: 'Experience', href: '#experience', command: 'git log' },
   { name: 'Projects', href: '#projects', command: 'ls projects/' },
+  { name: 'After Hours', href: '#after-hours', command: 'ls recommendations/' },
   { name: 'Contact', href: '#contact', command: './contact.sh' },
 ];
 
@@ -365,5 +374,44 @@ export const footerLinks: SocialLink[] = [
     name: 'Email',
     url: 'mailto:bishaldebroy2000@gmail.com',
     icon: 'email',
+  },
+];
+
+export const afterHoursData: Recommendation[] = [
+  {
+    title: "Interstellar",
+    category: "Movie",
+    rating: "9.5/10",
+    description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+  },
+  {
+    title: "Breaking Bad",
+    category: "Series",
+    rating: "9.8/10",
+    description: "A high school chemistry teacher turned ruthless kingpin in the local methamphetamine trade.",
+  },
+  {
+    title: "Attack on Titan",
+    category: "Anime",
+    rating: "10/10",
+    description: "After his hometown is destroyed and his mother is killed, young Eren Jaeger vows to cleanse the earth of the giant humanoid Titans.",
+  },
+  {
+    title: "Atomic Habits",
+    category: "Book",
+    rating: "9.0/10",
+    description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day.",
+  },
+  {
+    title: "The Joe Rogan Experience",
+    category: "Podcast",
+    rating: "8.5/10",
+    description: "Long form conversations with friends and guests that include comedians, actors, musicians, and thinkers.",
+  },
+  {
+    title: "The Pragmatic Programmer",
+    category: "Article",
+    rating: "9.2/10",
+    description: "A classic book on software engineering, but many concepts are available as insightful articles.",
   },
 ];
