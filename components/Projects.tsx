@@ -4,10 +4,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { GoOrganization } from "react-icons/go";
 import { VscFilePdf } from "react-icons/vsc";
-import { TbMoneybag } from "react-icons/tb";
+// import { TbMoneybag } from "react-icons/tb";
 import { HiDevicePhoneMobile } from "react-icons/hi2";
 import { MdOutlineFoodBank } from "react-icons/md";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { FaGithub } from "react-icons/fa";
+import { AiFillThunderbolt } from "react-icons/ai";
 
 const projects = [
 	{
@@ -29,7 +31,8 @@ const projects = [
 		status: "Open Source [Beta version]",
 		icon: <VscFilePdf />, // PDF Icon
 		color: "from-aot-cream to-aot-green",
-		live: "https://vanillapdf.netlify.app/",
+		live: "https://vanillapdf.netlify.app/", // live project
+		github: "https://github.com/bishaldebroy007/vanillaPDF", // github link
 	},
 	{
 		title: "Naruto Finance",
@@ -40,7 +43,8 @@ const projects = [
 		status: "Open Source [Beta version]",
 		icon: <GiTakeMyMoney />, // money Icon
 		color: "from-aot-cream to-aot-green",
-		live: "https://vanillapdf.netlify.app/",
+		live: "https://naruto-expense.netlify.app/", // live project
+		github: "https://github.com/bishaldebroy007/naruto-expense", // github link
 	},
 	{
 		title: "HRMS Mobile App",
@@ -61,18 +65,18 @@ const projects = [
 		status: "Completed",
 		icon: <MdOutlineFoodBank />, // Money Icon
 		color: "from-aot-green-dim to-aot-cream",
-		live: "https://github.com/bishaldebroy007/resturent-menu-django",
+		github: "https://github.com/bishaldebroy007/resturent-menu-django", // github link
 	},
-	{
-		title: "SmartSpend",
-		description:
-			"A web application designed to help users manage their personal expenses efficiently with intuitive tracking and analytics.",
-		tech: ["React JS", "Tailwind CSS", "Daisy UI"],
-		period: "03/2025 – 05/2025",
-		status: "Completed",
-		icon: <TbMoneybag />,
-		color: "from-aot-green-dim to-aot-cream",
-	},
+	// {
+	// 	title: "SmartSpend",
+	// 	description:
+	// 		"A web application designed to help users manage their personal expenses efficiently with intuitive tracking and analytics.",
+	// 	tech: ["React JS", "Tailwind CSS", "Daisy UI"],
+	// 	period: "03/2025 – 05/2025",
+	// 	status: "Completed",
+	// 	icon: <TbMoneybag />,
+	// 	color: "from-aot-green-dim to-aot-cream",
+	// },
 ];
 
 const certificates = [
@@ -209,17 +213,30 @@ export default function Projects() {
 								</div>
 
 								{/* Action Buttons */}
-								<div className="flex gap-2">
+								<div className="flex gap-2 mt-auto">
 									{project.live && (
 										<motion.a
 											href={project.live}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="flex-1 text-center py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors"
+											className="flex-1 flex items-center justify-center py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors"
 											whileHover={{ scale: 1.05 }}
 											whileTap={{ scale: 0.95 }}
 										>
-											Live Demo →
+											<AiFillThunderbolt size="18" /> Live
+											Demo
+										</motion.a>
+									)}
+									{project.github && (
+										<motion.a
+											href={project.github}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="flex-1 flex items-center justify-center gap-2 py-2 bg-black text-white border-2 border-black rounded-lg text-sm font-bold hover:bg-white hover:text-black transition-colors"
+											whileHover={{ scale: 1.05 }}
+											whileTap={{ scale: 0.95 }}
+										>
+											<FaGithub size="18" /> GitHub
 										</motion.a>
 									)}
 								</div>

@@ -58,7 +58,7 @@ export default function Footer() {
 							},
 							{
 								label: "Email",
-								url: "mailto:bishaldebroy2000@gmail.com",
+								url: "mailto:rajroybishal@duck.com",
 							},
 						].map((link) => (
 							<motion.a
@@ -88,13 +88,8 @@ export default function Footer() {
 					>
 						<p className="font-medium">
 							© {mounted ? new Date().getFullYear() : "2026"}{" "}
-							Bishal Deb Roy. Built with{" "}
-							<span className="text-black font-bold">
-								Next.JS
-							</span>{" "}
-							and{" "}
-							<span className="text-aot-red font-bold">Love</span>{" "}
-							inspired by Anime
+							Bishal Deb Roy | Portfolio. Inspired by,{" "}
+							<span>Attack on Titan</span>
 						</p>
 					</motion.div>
 				</div>
